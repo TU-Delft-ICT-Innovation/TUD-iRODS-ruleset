@@ -1,5 +1,9 @@
 
 
+DATA_SIZE_THRESHOLD = 40
+FAST_REPLICATION_RESOURCE = "replResc1"
+SLOW_REPLICATION_RESOURCE = "replResc2"
+
 acPostProcForPut{
     tudReplicate();
 }
@@ -7,13 +11,12 @@ acPostProcForPut{
 
 tudReplicate{
     *home="/$rodsZoneClient/home/$userNameClient"
-    writeLine("serverLog", "Starting tudReplicate on object: *home");
+    writeLine("serverLog", "Starting tudReplicate on object: $objPath");
+    *Resource=FAST_REPLICATION_RESOURCE
 
-    *Resource="replResc1"
-
-    if($dataSize > 40){
+    if($dataSize > DATA_SIZE_THRESHOLD) {
         writeLine("serverLog", "Use slow replication resource");
-       *Resource="replResc2"
+       *Resource=FAST_REPLICATION_RESOURCE
     }
     else { 
         writeLine("serverLog", "Use fast replication resource"); 
