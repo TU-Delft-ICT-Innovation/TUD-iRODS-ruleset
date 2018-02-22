@@ -1,4 +1,6 @@
-tudDeleteNotAccessedObjects {                                                                                                  
+tudDeleteNotAccessedObjects {
+    msiGetSystemTime(*Tim,	"human");	
+    writeLine("stdout", "*Tim: Checking LAST_ACCESS_TIME attribuut")                                                                                                  
     *Q1 = select COLL_NAME, DATA_NAME, DATA_SIZE, META_DATA_ATTR_VALUE where META_DATA_ATTR_NAME = 'LAST_ACCESS_TIME';	
     msiGetSystemTime(*Time, "unix");
 
